@@ -20,7 +20,6 @@ jobs:
           submodules: true
           lfs: false
 
-      # ✅ Step 27 addition: Validate frontend build env
       - name: Validate frontend build env
         run: |
           if [ -z "${VITE_API_URL}" ]; then
@@ -34,9 +33,10 @@ jobs:
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
-        # ✅ Step 27 addition: pass VITE_API_URL to build
+
         env:
           VITE_API_URL: ${{ vars.VITE_API_URL || secrets.VITE_API_URL }}
+
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_KIND_GLACIER_01E37DB0F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
@@ -58,3 +58,4 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_KIND_GLACIER_01E37DB0F }}
           action: "close"
+
